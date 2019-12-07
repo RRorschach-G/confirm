@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ConfirmCom from "./confirm-com";
+
 function confirm(str) {
     return new Promise((resolve, reject) => {
       const div = document.createElement("div");
@@ -8,11 +9,13 @@ function confirm(str) {
       document.body.appendChild(div);
       ReactDOM.render(
         <ConfirmCom
-          complete={() => {
-            resolve(true);
+         onConfirm={() => {
+            ReactDOM.unmountComponentAtNode(div)
+            resolve(true)
           }}
-          incomplete={() => {
-            resolve(false);
+          onCancel={() => {
+            resolve(false)
+            ReactDOM.unmountComponentAtNode(div)
           }}
           context={str}
         />,
